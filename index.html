@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Goalkeeper · Just say it</title>
+<meta name="description" content="Say it once. Goalkeeper fills the cart, finds the free slot, drafts the reply and puts your day on your home screen. For Android.">
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Goalkeeper · Just say it">
+<meta property="og:description" content="What took minutes, sometimes hours, now takes seconds. And most of the time, you never open an app.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/kit.css">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<main class="wrap" id="top">
+  <header class="top">
+    <a class="brand" href="#top" aria-label="Goalkeeper"><svg viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="9.5" stroke="currentColor" stroke-width="1.8"/><circle cx="11" cy="11" r="4.5" fill="currentColor"/></svg>Goalkeeper</a>
+    <span class="sp"></span>
+    <a class="l" href="#say">What you can say</a><a class="l" href="#fast">Time back</a><a class="l" href="#apps">Your apps</a>
+  </header>
+
+  <section class="hero" aria-label="Say it once">
+    <div class="whorow"><span>Say it as</span><div class="who" id="who" role="tablist" aria-label="Who is talking"></div></div>
+    <div class="hgrid">
+      <div>
+        <div class="you"><span class="rec" id="rec"></span><span>You, to Goalkeeper</span></div>
+        <p class="said" id="said" aria-live="polite"></p>
+      </div>
+      <div class="gkc listen" id="gkc" aria-live="polite">
+        <div class="gkh"><span class="mk" id="mk1"></span>Goalkeeper<span class="stt"><i></i><span id="stt">Listening</span></span></div>
+        <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="steps" id="steps"></div>
+        <p class="reply" id="reply"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="say">
+    <div class="intro">
+      <div class="kick">What you can say</div>
+      <h2>Say it the way you’d say it to a friend.</h2>
+      <p class="lede">Each one below is a real sentence, and the real screen it turns into. They play on their own. Touch one to take over.</p>
+    </div>
+    <div id="spreads"></div>
+    <section class="place" id="widget" aria-label="The widget">
+      <div class="head">
+        <div><div class="kick">The widget</div><h2>Pick a size. Put it where your thumb is.</h2></div>
+        <div><p class="lede">Four sizes, from one line to your whole evening. Each one moves with your day, and every button works from right there. Try one.</p>
+          <div class="sizes" id="sizes"></div></div>
+      </div>
+      <div class="board" id="board">
+        <div class="cols" id="cols"></div>
+        <div class="ptoast" id="ptoast" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+  </section>
+
+  <section class="fast" id="fast">
+    <div class="kick">Time back</div>
+    <h2>What took minutes, sometimes hours, now takes seconds.</h2>
+    <p class="lede">And most of the time, you never open an app. Here are the same three things, done both ways.</p>
+    <div class="race" id="race"></div>
+
+    <div class="calc">
+      <div>
+        <label for="n">How many small things do you handle in a day?</label>
+        <div class="nval"><b id="nv">8</b><span id="nl">things a day</span></div>
+        <input type="range" id="n" min="1" max="30" value="8" aria-describedby="eq">
+        <div class="rl"><span>1</span><span>10</span><span>20</span><span>30</span></div>
+        <div class="chips" id="chips" aria-hidden="true"></div>
+      </div>
+      <div class="cr">
+        <div class="pseg" role="group" aria-label="Over"><button type="button" data-p="m">In a month</button><button type="button" data-p="y" class="on">In a year</button></div>
+        <div class="hrs"><b id="hv">146</b><span id="hu">hours back</span></div>
+        <div class="eqk" id="eqk">By the end of the year, you could have</div>
+        <p class="eq" id="eq" aria-live="polite"></p>
+        <div class="waf" id="waf" aria-hidden="true"></div><div class="wafl" id="wafl">Each square is an hour you get back.</div>
+        <p class="fine">Counting about three minutes saved each time. Finding one free slot across three calendars takes longer than that.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="yapps" id="apps">
+  <div class="wrap">
+    <div class="kick">Your apps</div>
+    <h2>What you use every day stays. Now it all works as one.</h2>
+    <p class="lede">Nothing to move, nothing to replace, nothing new to learn. Goalkeeper reads what your apps already know, and brings it to one place.</p>
+  </div>
+  <div class="mq" aria-hidden="true"><div class="mrow" id="m1" style="--d:70s"></div><div class="mrow rev" id="m2" style="--d:80s"></div></div>
+  <div class="wrap">
+    <div class="bento" id="bento"></div>
+    <div class="promise"><span class="mk" id="mk2"></span><b>It only reads. Nothing is sent or paid without your tap.</b><span>You pay in each shop’s own app. Office meetings stay private.</span></div>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="trust">
+    <div><b>Sorted on your phone.</b><p>Payment notifications only. Never OTPs, chats or your balance.</p></div>
+    <div><b>Read-only. Never sold.</b><p>Never used to train AI.</p></div>
+    <div><b>Undo anything.</b><p>Everything it did on its own sits in one list, each with an Undo.</p></div>
+  </section>
+  <section class="join" id="join">
+    <div class="kick">Early access</div>
+    <p class="jb">Tomorrow, just say it.</p>
+    <form id="jf" data-endpoint="" novalidate><label for="em" style="position:absolute;left:-9999px">Email</label><input id="em" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit">Get the Android invite</button></form>
+    <p class="fine" id="fine" aria-live="polite"></p>
+  </section>
+  <footer class="foot"><span>Goalkeeper · Android 8 and up</span><span>App names and icons belong to their owners.</span></footer>
+</div>
+
+<a class="pill" id="pill" href="#join" aria-label="Get early access"><span class="say" id="psay"></span><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></a>
+
+<script src="assets/js/boards.js"></script>
+<script src="assets/js/kit.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
