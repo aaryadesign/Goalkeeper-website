@@ -51,9 +51,9 @@
 .w-dot{width:7px;height:7px;border-radius:4px;flex-shrink:0}
 .w-mic{width:34px;height:34px;border-radius:17px;background:#1C1C1E;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .w-mic svg{width:16px;height:16px}
-.w-t{font-family:Newsreader,Georgia,serif;font-size:27px;line-height:30px;letter-spacing:-.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.w-t{font-family:Geist,system-ui,sans-serif;font-weight:600;font-size:27px;line-height:30px;letter-spacing:-.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .w-t.sm{font-size:25px}
-.w-i{font-family:Newsreader,Georgia,serif;font-style:italic;font-size:15px;line-height:20px;color:rgba(28,28,30,.6);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.w-i{font-family:Geist,system-ui,sans-serif;font-size:14.5px;line-height:20px;color:rgba(28,28,30,.6);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .w-s{font-size:13.5px;color:rgba(28,28,30,.6);margin-top:2px}
 .w-f{flex-grow:1}
 .w-bar{position:relative;height:6px;border-radius:3px;background:rgba(28,28,30,.1)}
@@ -74,7 +74,7 @@
 .w-segl .on{color:#1C1C1E;font-weight:600}
 .w.sq{width:165px;height:165px;padding:16px 14px 14px 16px}
 .w.sq .w-meta{font-size:12px}
-.w.sq .big{font-family:Newsreader,Georgia,serif;font-size:34px;line-height:40px;letter-spacing:-.5px;margin-top:4px;white-space:nowrap}
+.w.sq .big{font-family:Geist,system-ui,sans-serif;font-weight:600;font-size:34px;line-height:40px;letter-spacing:-.5px;margin-top:4px;white-space:nowrap}
 .w.sq .w-i{font-size:14.5px;margin-top:0}
 .w.line{height:72px;border-radius:36px;padding:0 14px 0 20px;flex-direction:row;align-items:center;gap:10px}
 .w.line .in{flex-direction:row;align-items:center;gap:10px}
