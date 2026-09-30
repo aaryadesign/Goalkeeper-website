@@ -167,7 +167,7 @@
     const pr = (a, b) => ({ pair: [a, b] });
     const COLS = [
       ['a', [[['line', 'line', ['Gym at 8', ' · in 1h 20m']], '4×1', 'One line'], [['tall', 'tall'], '4×4', 'Your whole evening']]],
-      ['b', [[['time'], '4×2', 'It’s time'], [pr(['sqSpent', ['₹2,340', '6 payments', [5, 5, 4, 9]]], ['sqNext', ['Modalis', 'Next · 10 PM', 'in 1h 12m']]), '2×2', 'Money, and what’s next'], [['onway', '', [2.2, 8]], '4×2', 'On the way']]],
+      ['b', [[['time'], '4×2', 'It’s time'], [pr(['sqSpent', ['₹2,340', '6 payments', [5, 5, 4, 9]]], ['sqNext', ['Molades', 'Next · 10 PM', 'in 1h 12m']]), '2×2', 'Money, and what’s next'], [['onway', '', [2.2, 8]], '4×2', 'On the way']]],
       ['c', [[['clash'], '4×2', 'Seeing ahead'], [['cart'], '4×2', 'Cart ready'], [pr(['sqMonth'], ['sqDone']), '2×2', 'The month, the day']]],
     ];
     const ICON = { '4×1': [4, 1], '2×2': [2, 2], '4×2': [4, 2], '4×4': [4, 4] };
@@ -332,7 +332,7 @@
   $('#m1').innerHTML = mrow(ALL.slice(0, half)); $('#m2').innerHTML = mrow(ALL.slice(half));
   const C = [
     ['wide', 'Your day', ['gcal', 'gmail', 'meet', 'outlook', 'teams'], 'Google, Outlook and Teams, every calendar at once. Office meetings stay private.',
-      [['gcal', 'Two things at 4:30 on Thursday', 'Calendar · Office and Freelance'], ['meet', 'Modalis in 12 min. Join?', 'Google Meet · with Rajat'], ['gmail', 'Rohan asked for the deck', 'Gmail · reply drafted'], ['outlook', 'Design review moved to 5', 'Outlook · Office calendar']]],
+      [['gcal', 'Two things at 4:30 on Thursday', 'Calendar · Office and Freelance'], ['meet', 'Molades in 12 min. Join?', 'Google Meet · with Rajat'], ['gmail', 'Rohan asked for the deck', 'Gmail · reply drafted'], ['outlook', 'Design review moved to 5', 'Outlook · Office calendar']]],
     ['wide', 'Your people and work', ['whatsapp', 'slack', 'notion', 'figma'], 'Replies, mentions and pages, written for you. Posted when you tap.',
       [['whatsapp', '“Dinner at 9 tonight?” is ready', 'WhatsApp · to Monika'], ['slack', 'Three mentions in #design, summed up', 'Slack'], ['notion', 'This week’s priorities, written', 'Notion · five things']]],
     ['', 'Your shops', ['instamart', 'swiggy', 'zepto', 'amazon', 'blinkit'], 'Carts filled with your usual and the best simple coupon. You pay in their app.',
