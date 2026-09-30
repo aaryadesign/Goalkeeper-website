@@ -40,5 +40,5 @@ For GitHub Pages: Settings → Pages → Deploy from a branch → `main` / root.
 - **Autoplay.** Each phone taps through its flow on its own. The step list is `flow` on each entry in `S` in `site.js`, and each step names a button by the text it starts with. When someone touches a phone, its autoplay pauses until they press "Play again".
 - **Time-back numbers.** The slider counts about 3 minutes saved per thing, and the page says so in its small print. `LADDER` in `site.js` holds the "you could have…" lines, keyed by hours.
 - **Reduced motion.** With reduced motion on, every animation settles into its finished state.
-- **Link preview.** `assets/og.jpg` (2400×1260) is the image people see when the link is shared. The `og:` and `twitter:` tags in `index.html` point to it at `https://aaryadesign.github.io/goalkeeper-website/`. If the site goes on another domain, change those URLs, because previews need the full address.
+- **Link preview.** `assets/og.jpg` (2400×1260) is the image people see when the link is shared. The `og:` and `twitter:` tags in `index.html` point to it at `https://goalkeeper-dun.vercel.app/`. Previews need the full address, so if the site moves to another domain, change those URLs (and in the build script, if you regenerate the page).
 - **App names and icons** belong to their owners. The footer says so.
