@@ -3,182 +3,55 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Goalkeeper · Just say it</title>
-<meta name="description" content="Tell Goalkeeper what’s on your mind. It sorts your day and gets everything ready. You just tap. For Android.">
-<meta name="theme-color" content="#FBF9F5">
+<title>Goalkeeper · Say it and it’s ready</title>
+<meta name="description" content="A voice assistant for people with full days. Say what you need, the way you’d tell a friend. Goalkeeper sets it up in the apps you already use, so all that’s left is one tap from you.">
+<meta name="theme-color" content="#F4F1EA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Goalkeeper · Just say it">
-<meta property="og:description" content="Tell it what’s on your mind. It sorts your day and gets everything ready. You just tap.">
+<meta property="og:title" content="Goalkeeper · Say it and it’s ready">
+<meta property="og:description" content="Say what you need, the way you’d tell a friend. Goalkeeper sets it up in the apps you already use, so all that’s left is one tap from you.">
 <meta property="og:url" content="https://goalkeeper-dun.vercel.app/">
 <meta property="og:image" content="https://goalkeeper-dun.vercel.app/assets/og.jpg">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
-<meta property="og:image:alt" content="Goalkeeper: Just say it. “Gym at 7, then call Mom” turns into two tasks, 🏋️ Gym at 7 PM and 📞 Call Mom after.">
+<meta property="og:image:alt" content="Goalkeeper: Say it and it’s ready. A voice assistant for people with full days.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://goalkeeper-dun.vercel.app/assets/og.jpg">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400;500&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
-
-<header class="nav" id="nav">
-  <div class="wrap row">
-    <a class="brand" href="#top" aria-label="Goalkeeper, back to top">Goalkeeper</a>
-    <nav class="links" aria-label="Sections"><a href="#how">How it helps</a><a href="#widget">Widget</a><a href="#trust">Trust</a></nav>
-    <a class="btn sm" href="#join">Get the invite</a>
+<div id="live"></div>
+<div id="dayw"></div>
+<div id="wgw"></div>
+<div id="morew"></div>
+<div id="appw"></div>
+<section class="fin" id="join" aria-labelledby="h-join"><div class="wrap fc">
+  <h2 id="h-join" class="big"><span class="ln"><span>Your</span></span> <span class="ln"><span>turn<span class="hs2" aria-hidden="true"></span></span></span></h2>
+  <p class="d rv1">Early access is open. Leave your email and we’ll send you the app.</p>
+  <form class="sg rv1" data-endpoint="" novalidate><label class="vh" for="em">Email</label><input id="em" type="email" placeholder="you@email.com" autocomplete="email" required><button class="btn1" type="submit">Get early access</button></form>
+  <p class="ok" aria-live="polite"></p>
+  <ul class="tr">
+    <li style="--j:0"><span class="em">📱</span><b>Your day stays on your phone</b><small>No cloud account holding your plans.</small></li>
+    <li style="--j:1"><span class="em">🙅</span><b>Nothing to sign up for</b><small>Open it and start talking.</small></li>
+    <li style="--j:2"><span class="em">👆</span><b>The last tap is yours</b><small>It never sends, books or pays by itself.</small></li>
+    <li style="--j:3"><span class="em">🙈</span><b>Your chats stay yours</b><small>It never reads WhatsApp or takes over other apps.</small></li>
+  </ul>
+  <p class="fine rv1">To understand you, what you say and the titles of your plans are sent to the AI. That’s what leaves the phone.</p>
+</div></section>
+<footer class="ft" aria-label="Footer">
+  <div class="wrap ftop">
+    <p class="ask"><b class="now">–</b> <span class="say">Anything for tomorrow?</span></p>
+    <nav class="fl" aria-label="Footer"><div><small>Goalkeeper</small><a href="#day">A day with it</a><a href="#widget">The widget</a><a href="#more">Keeping track</a><a href="#apps">Your apps</a></div>
+      <div><small>Company</small><a href="#join">Early access</a><a href="#join">Privacy</a></div></nav>
   </div>
-</header>
-
-<main id="top">
-  <section class="hero" aria-labelledby="h1">
-    <div class="stk" id="stk" aria-hidden="true"></div>
-    <div class="wrap">
-      <p class="pill-k" data-r><span class="live" aria-hidden="true"></span>Android · Early access</p>
-      <h1 id="h1" data-r style="--d:1">Just say it.</h1>
-      <p class="sub" data-r style="--d:2">Tell Goalkeeper what’s on your mind. It sorts your day and gets everything ready. You just tap.</p>
-      <div class="cta" data-r style="--d:3"><a class="btn" href="#join">Get the Android invite</a><span class="mono">Android 8 and up</span></div>
-
-      <div class="stage" id="stage" data-r style="--d:4" aria-label="An example: you say something, and Goalkeeper sorts it">
-        <p class="you" id="you" aria-live="polite"></p>
-        <div class="gk">
-          <span class="face e" id="face" aria-hidden="true">🙂</span>
-          <div class="gkl"><b>Goalkeeper</b><span class="st" id="st">Ready</span></div>
-          <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-        </div>
-        <div class="cards" id="cards"></div>
-        <p class="reply" id="reply" aria-live="polite"></p>
-      </div>
-      <div class="ex" id="ex" role="tablist" aria-label="Examples"></div>
-    </div>
-  </section>
-
-  <section class="sec" id="how" aria-labelledby="h-how">
-    <div class="wrap">
-      <p class="k" data-r><span class="e">🧺</span>How it helps</p>
-      <h2 id="h-how" data-r style="--d:1">Small things, handled.</h2>
-      <div class="grid6" id="small"></div>
-    </div>
-  </section>
-
-  <section class="sec band" id="widget" aria-labelledby="h-w">
-    <div class="wrap wgrid">
-      <div class="wtxt">
-        <p class="k" data-r><span class="e">🌤️</span>The widget</p>
-        <h2 id="h-w" data-r style="--d:1">Your day, on your home screen.</h2>
-        <p class="lede" data-r style="--d:2">No app to open. What’s next is right there, with the one button you need.</p>
-        <div class="ctl" data-r style="--d:3">
-          <p class="cl">Time of day</p>
-          <div class="seg times" id="times" role="group" aria-label="Time of day"></div>
-          <p class="cl">Size</p>
-          <div class="seg sizes" id="sizes" role="group" aria-label="Widget size"></div>
-        </div>
-      </div>
-      <div class="phw" data-r style="--d:2">
-        <div class="phone" id="phone" aria-label="An Android home screen with the Goalkeeper widget">
-          <div class="walls" aria-hidden="true"><i data-w="dawn"></i><i data-w="day"></i><i data-w="dusk"></i><i data-w="eve"></i><i data-w="night"></i></div>
-          <div class="sbar" aria-hidden="true"><span id="clock">8:00</span><span class="sic"><i></i><i></i><i></i></span></div>
-          <div class="glance" id="glance" aria-hidden="true"></div>
-          <div class="home" id="home"></div>
-          <div class="dock" aria-hidden="true"><div class="gsearch"><span>G</span><i></i></div></div>
-          <div class="ptoast" id="ptoast" role="status" aria-live="polite"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="more" aria-labelledby="h-more">
-    <div class="wrap">
-      <p class="k" data-r><span class="e">🧠</span>More than a list</p>
-      <h2 id="h-more" data-r style="--d:1">It remembers, so you don’t have to.</h2>
-      <div class="bento">
-        <article class="bx wide" data-r>
-          <p class="bk"><span class="e">🎯</span>Goals</p>
-          <p class="bq">“Run a marathon in December.”</p>
-          <p class="ba">A plan that fits around your meetings. If the jump’s too big, it says so.</p>
-          <div class="runs" id="runs" aria-hidden="true"></div>
-          <div class="mo" aria-hidden="true"><span style="grid-column:1/5">Oct</span><span style="grid-column:5/10">Nov</span><span style="grid-column:10/15">Dec</span></div>
-          <div class="chips"><span><span class="e">🏃</span>41 runs on your calendar</span><span><span class="e">🟢</span>On track</span><span><span class="e">🔥</span>6 in a row</span></div>
-        </article>
-        <article class="bx" data-r style="--d:1">
-          <p class="bk"><span class="e">🪙</span>Spending</p>
-          <p class="bq">“What did I spend on food this month?”</p>
-          <p class="big"><span id="spent" data-to="7180">₹7,180</span></p>
-          <div class="bars2" id="bars2"></div>
-          <p class="fine">From payment notifications, sorted on your phone.</p>
-        </article>
-        <article class="bx" data-r>
-          <p class="bk"><span class="e">🙋</span>Follow-ups</p>
-          <p class="bq">“Remind me if Karan doesn’t reply by Friday.”</p>
-          <div class="notif" id="notif">
-            <div class="nh"><span class="e">🙋</span><b>Goalkeeper</b><span>Fri · 10:00 AM</span></div>
-            <p>Did Karan reply? A nudge is written, if you want it.</p>
-            <div class="nb"><button type="button" data-a="nudge"><span class="e">👉</span>Nudge</button><button type="button" data-a="did"><span class="e">🙌</span>He did</button></div>
-          </div>
-          <p class="wl">Also open</p>
-          <ul class="wait">
-            <li><span class="e">🙋</span><span>Akash · electricity bill</span><small>since Mon</small></li>
-            <li><span class="e">🤞</span><span>You promised Riya the notes</span><small>by Thu</small></li>
-          </ul>
-        </article>
-        <article class="bx wide" data-r style="--d:1">
-          <p class="bk"><span class="e">🌙</span>Close the day</p>
-          <p class="bq">One minute, each evening.</p>
-          <p class="ba">What got done, what moves, who you’re waiting on. Then it’s quiet till morning.</p>
-          <ol class="close" id="close"></ol>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="apps" aria-labelledby="h-apps">
-    <div class="wrap">
-      <p class="k" data-r><span class="e">🧩</span>Your apps</p>
-      <h2 id="h-apps" data-r style="--d:1">Works with the apps you already have.</h2>
-      <p class="lede" data-r style="--d:2">Nothing to move. It opens the right app with everything filled in, and you finish with one tap.</p>
-    </div>
-    <div class="mq" aria-hidden="true"><div class="mrow" id="m1"></div><div class="mrow rev" id="m2"></div></div>
-    <div class="wrap"><div class="hand" id="hand"></div></div>
-  </section>
-
-  <div class="night" id="nightzone">
-    <div class="stars" id="stars" aria-hidden="true"></div>
-    <section class="sec trust" id="trust" aria-labelledby="h-trust">
-      <div class="wrap">
-        <p class="k" data-r><span class="e">🔒</span>Trust</p>
-        <h2 id="h-trust" data-r style="--d:1">It asks before it acts.</h2>
-        <p class="lede" data-r style="--d:2">You stay in charge. Here’s exactly where the lines are.</p>
-        <div class="tcols">
-          <div class="tc" data-r><p class="th"><span class="e">✅</span>On its own</p><ul><li>Sorts your day</li><li>Writes your texts and emails</li><li>Reminds you, and checks back</li></ul></div>
-          <div class="tc" data-r style="--d:1"><p class="th"><span class="e">👆</span>Waits for your tap</p><ul><li>Sending anything</li><li>Joining a call, or calling</li><li>Paying, in the shop’s own app</li></ul></div>
-          <div class="tc" data-r style="--d:2"><p class="th"><span class="e">🚫</span>Never</p><ul><li>Pays or orders for you</li><li>Reads OTPs, chats or balances</li><li>Sells your data, or trains AI on it</li></ul></div>
-        </div>
-        <p class="undo" data-r><span class="e">↩️</span>Everything it did on its own sits in one list, each with an Undo.</p>
-      </div>
-    </section>
-
-    <section class="sec join" id="join" aria-labelledby="h-join">
-      <div class="wrap">
-        <p class="moon e" id="moon" aria-hidden="true" data-r>🌙</p>
-        <h2 id="h-join" data-r style="--d:1">Tomorrow, just say it.</h2>
-        <p class="lede" data-r style="--d:2">Early access is opening on Android. Leave your email and we’ll send the invite.</p>
-        <form id="jf" data-endpoint="" novalidate data-r style="--d:3">
-          <label for="em" class="vh">Email</label>
-          <input id="em" type="email" placeholder="you@example.com" autocomplete="email" required>
-          <button class="btn light" type="submit">Get the invite</button>
-        </form>
-        <p class="fine" id="fine" aria-live="polite"></p>
-      </div>
-    </section>
-
-    <footer class="foot">
-      <div class="wrap row"><span>Goalkeeper · Android 8 and up</span><span>Emoji: Noto Color Emoji, SIL OFL. App names and icons belong to their owners.</span></div>
-    </footer>
-  </div>
-</main>
-
+  <div class="wm" aria-hidden="true"><span class="wl"><span class="wc" style="--j:0">G</span><span class="wc wo" style="--j:1"></span><span class="wc" style="--j:2">a</span><span class="wc" style="--j:3">l</span><span class="wc" style="--j:4">k</span><span class="wc" style="--j:5">e</span><span class="wc" style="--j:6">e</span><span class="wc" style="--j:7">p</span><span class="wc" style="--j:8">e</span><span class="wc" style="--j:9">r</span></span></div>
+  <div class="wrap fbot"><span>© 2026 Goalkeeper</span><span>Made for full days.</span></div>
+</footer>
+<button class="io fly" type="button" aria-label="Talk to Goalkeeper" hidden></button>
 <script src="assets/js/site.js"></script>
 </body>
 </html>

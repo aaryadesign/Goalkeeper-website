@@ -1,8 +1,8 @@
 # Goalkeeper website
 
-The marketing site for Goalkeeper, the Android app you just talk to: it sorts your day, gets things ready, and keeps what's next on your home screen.
+The marketing site for Goalkeeper, the voice assistant for people with full days: say what you need, and it sets it up in the apps you already use, so all that's left is one tap.
 
-It's a plain static site: one HTML page, a few CSS and JS files, no build step and no dependencies.
+It's a plain static site: one HTML page, one CSS file and one JS file, no build step and no dependencies.
 
 ## Run it locally
 
@@ -19,23 +19,35 @@ Then open http://localhost:8000. Opening `index.html` straight from disk also wo
 
 Push the folder as it is to GitHub Pages, Netlify, Vercel or Cloudflare Pages. There's nothing to build. `.nojekyll` keeps GitHub Pages from touching the files.
 
-For GitHub Pages: Settings → Pages → Deploy from a branch → `main` / root.
-
 ## What's where
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | The page: hero, small things, the widget, more than a list, your apps, trust, invite form |
-| `assets/css/site.css` | Every style on the page, including the phone and the widget |
-| `assets/js/site.js` | Everything that moves: the hero conversation, the widget through the day, the cards, the invite form |
+| `index.html` | The page shell: the sign-up section and the footer; the other sections are drawn by `site.js` |
+| `assets/css/site.css` | Every style on the page, light and dark |
+| `assets/js/site.js` | Everything that moves: the welcome animation, the mic, each section |
 | `assets/brands/` | App icons, from the Goalkeeper app's `drawable-nodpi/brand_*.png` |
+| `assets/og.jpg` | The link preview (2400×1260) |
+| `favicon.svg` | The listening oval, on its own |
+
+The previous design is kept on the `Old-Design` branch.
+
+## The page, top to bottom
+
+- **Welcome.** The wordmark rises letter by letter, its "o" turns into the mic and listens, then the whole thing flies into the nav. It plays once per browser session, never with reduced motion, and a click, key or scroll skips it (`intro()`).
+- **Hero.** "Say it and it's ready." The mic in the headline plays the moments in `TB`.
+- **The mic.** Once you scroll, the mic leaves the headline and docks at the bottom. Each section can borrow it: they register in `SCROLLS` (what to do on scroll), `POS` (where the mic should be) and `CLICKS` (what a tap means).
+- **Neha's Tuesday.** `DAY` holds the eight moments. The mic is the playhead on the day's timeline.
+- **The widget.** The widget as designed in the app, in four sizes. On the smaller sizes the mic turns into the widget's main button.
+- **It keeps track.** Three things said; the answer is written back as one sentence with the live bits set inline (`LS`, `LCH`).
+- **Your apps.** The apps it hands off to float round the edges; the one it opens comes to the middle with what's ready and the one tap left (`AS`, `AT`).
+- **Your turn.** Sign-up and what stays on the phone. The mic lands in the headline.
+- **Footer.** The time, said the way the app would. The mic comes down into the wordmark, the letters make room, and it becomes the "o", listening.
 
 ## Things to know
 
-- **Type and emoji.** Geist for everything, Geist Mono for small labels. No serif anywhere. Every emoji is set in Google's Noto Color Emoji (loaded from Google Fonts), so the page looks the same on every phone. `emo()` in `site.js` wraps any emoji in `<span class="e">` for that.
-- **The hero.** `EX` in `site.js` holds the four examples: what's said, the cards it becomes (emoji, title, detail, colour, action) and the reply. They play in turn; tapping a chip pins one.
-- **The widget.** `TIMES` holds the five moments of the day (8:00 AM to 11:00 PM) and what each widget size shows then. `ITEMS` is the day's list. It plays through the day on its own until someone touches it. "Close the day" moves it to night.
-- **Invite form.** The form posts the email to the URL in `data-endpoint` on `<form id="jf">` in `index.html`. It sends the email as the form field `email`, with `Accept: application/json`. Formspree, a Google Apps Script web app or your own endpoint all work. Until you set one, submitting says the list opens soon, and nothing is sent anywhere.
-- **Reduced motion.** With reduced motion on, everything settles into its finished state.
-- **Link preview.** `assets/og.jpg` (2400×1260) is the image people see when the link is shared. The `og:` and `twitter:` tags in `index.html` point to it at `https://goalkeeper-dun.vercel.app/`. Previews need the full address, so if the site moves to another domain, change those URLs.
-- **App names and icons** belong to their owners. The footer says so, and credits Noto Color Emoji (SIL Open Font License).
+- **Type and emoji.** Geist for everything. No serif anywhere. Emoji are set in Google's Noto Color Emoji, so the page looks the same on every phone.
+- **Light and dark.** It follows the system until someone taps the moon or sun in the nav; that choice is remembered.
+- **Sign-up form.** The form posts the email to the URL in `data-endpoint` on the `.sg` form in `index.html`, as the field `email`, with `Accept: application/json`. Formspree, a Google Apps Script web app or your own endpoint all work. Until one is set, submitting says the list opens soon, and nothing is sent anywhere.
+- **Reduced motion.** With reduced motion on, everything settles into its finished state and the welcome doesn't play.
+- **Link preview.** The `og:` and `twitter:` tags in `index.html` point to `https://goalkeeper-dun.vercel.app/`. Previews need the full address, so if the site moves to another domain, change those URLs.
