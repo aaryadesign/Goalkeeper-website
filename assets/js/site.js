@@ -8,7 +8,6 @@ const logo = (a) => a === 'gk' ? `<span class="gkt">${GKS}</span>` : `<img src="
 const CHK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 const MIC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3a3 3 0 0 1 3 3v5a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3zM5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>';
 const NE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>';
-const MARK = '<svg viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="9.5" stroke="currentColor" stroke-width="1.8"/><circle cx="11" cy="11" r="4.5" fill="currentColor"/></svg>';
 const ck = `<span class="ck">${CHK}</span>`;
 const IO = `<span class="i-mic">${MIC}</span><span class="i-bars"><i></i><i></i><i></i><i></i><i></i></span><span class="i-think"><i></i><i></i><i></i></span><span class="i-ring"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" pathLength="100"/></svg></span><span class="i-app"></span><span class="i-ck">${CHK}</span>`;
 
@@ -28,7 +27,7 @@ const LOB = [.55, .85, 1, .85, .55].map((h) => `<i style="--h:${(h * .3).toFixed
 const WMK = (cls = '') => `<span class="gkw ${cls}">G<span class="lo"><span>${LOB}</span></span>alkeeper</span>`;
 const MOON = '<svg class="mn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>';
 const SUN = '<svg class="sn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>';
-const NAV = `<div class="wrap"><header class="nav"><a class="brand" href="#" aria-label="Goalkeeper">${WMK()}<span class="bm">${MARK}Goalkeeper</span></a><nav class="links" aria-label="Sections"><a href="#day">How it works</a><a href="#widget">Your day</a><a href="#join">Privacy</a></nav><button class="thm" type="button" aria-label="Dark mode">${MOON}${SUN}</button><a class="nbtn" href="#join">Get early access</a></header></div>`;
+const NAV = `<div class="wrap"><header class="nav"><a class="brand" href="#" aria-label="Goalkeeper">${WMK()}</a><nav class="links" aria-label="Sections"><a href="#day">How it works</a><a href="#widget">Your day</a><a href="#join">Privacy</a></nav><button class="thm" type="button" aria-label="Dark mode">${MOON}${SUN}</button><a class="nbtn" href="#join">Get early access</a></header></div>`;
 const EB = `<a class="eb" href="#join"><b>Early access is open</b><span class="sep">·</span><span class="lk">Join the waitlist</span><span class="ar">${NE}</span></a>`;
 const SUB = `<p class="sub">A voice assistant for people with full days. Say what you need, the way you’d tell a friend. Goalkeeper sets it up in the apps you already use, so all that’s left is one tap from you.</p>`;
 const ACT = `<div class="act"><a class="btn1" href="#join">Get early access</a><a class="btn2" href="#day">See how it works</a></div>`;
@@ -172,7 +171,7 @@ const HEAD = (tally) => `<div class="wrap dh"><h2 id="h-day">Neha’s Tuesday, s
   ${tally ? '<p class="tally"><span><span class="em">✅</span><b class="n1">0</b> of 8 ready</span><span><span class="em">👆</span><b class="n2">0</b> taps from Neha</span></p>' : ''}</div>`;
 const CV = '<div class="cv" aria-hidden="true"><p class="tx"></p><p class="rs"></p><p class="hint"></p></div>';
 const DT = {
-  a: () => `<section class="day A" id="day" aria-labelledby="h-day"><div class="stage">${HEAD(1)}<div class="wrap dm">${CV}</div>
+  a: () => `<section class="day A rC" id="day" aria-labelledby="h-day"><div class="stage">${HEAD(1)}<div class="wrap dm">${CV}</div>
     <div class="rl" aria-hidden="true"><div class="wrap"><div class="rli"><div class="trk"><i class="fill"></i></div><span class="ptag"></span></div></div></div></div></section>`,
 };
 
@@ -283,7 +282,6 @@ const DRUN = {
     sec.style.setProperty('--skyg', SKYG);
     const X = (m) => ((m - D0) / (D1 - D0) * 100) + '%';
     let h = '';
-    for (let m = D0; m <= D1; m += 60) h += `<i class="tk" style="left:${X(m)}"></i>`;
     for (const m of [420, 600, 780, 960, 1140, 1320]) h += `<span class="hl" data-m="${m}" style="left:${X(m)}">${fmt(m).replace(':00', '')}</span>`;
     DAY.forEach((d) => (h += `<span class="mk" style="left:${X(d[0])}"><span class="em">${d[1]}</span></span>`));
     w.insertAdjacentHTML('beforeend', h);
@@ -433,235 +431,13 @@ function mountW() {
 }
 function sizeW() { const s = $('#widget'); if (s) s.style.height = innerHeight * (1 + PE + WM.length * PP + PX) + 'px'; fitAll(); }
 
-// ---------- more than a list: goals, money, who she's waiting on ----------
-const CAT = [['Food & drinks', 'or', 6180], ['Groceries', 'gr', 4320], ['Bills', 'bl', 3940], ['Travel', 'pu', 2260], ['Shopping', 'pk', 1540]];
+// ---------- it keeps track: goals, money, who she's waiting on ----------
 const rup = (n) => '₹' + n.toLocaleString('en-IN');
-const RUNS = [6, 7, 8, 9, 10, 11, 13, 14, 16, 17, 19, 12, 21.1];
-const CKO = '<span class="ck o"></span>';
-const MO = [
-  { k: 'goal', e: '🎯', lb: 'Goals', h: 'Say the goal. It plans the weeks.', app: 'gcal', t: [1300, 900, 700, 1000, 900],
-    p: 'It asks what a coach would, a question at a time, then puts the sessions on your calendar. If the goal isn’t safe in the time there is, it says so.',
-    said: 'I want to run a half marathon in December',
-    body: () => `<div class="ab" data-s="1" data-x="3"><p class="bub">How far can you run now?<span class="sm">I’ll build up from there.</span></p><div class="chips"><span>3 km</span><span data-p="2">5 km</span><span>10 km</span></div></div>
-      <div class="ab" data-s="3"><div class="gh"><b>Half marathon</b><small>Sun 13 Dec · 12 weeks</small></div>
-        <div class="bars" data-s="4">${RUNS.map((r, j) => `<i class="${j < 2 ? 'dn' : j === 2 ? 'nw' : j === 12 ? 'rc' : ''}" style="--h:${(r / 21.1 * 100).toFixed(1)}%;--j:${j}"></i>`).join('')}</div>
-        <div class="bl" data-s="4"><span>Week 1</span><span>Longest run 19 km</span><span>Race</span></div>
-        <ul class="ses" data-s="5"><li><span class="d">Tue</span>Easy run<b>4 km</b>${ck}</li><li><span class="d">Thu</span>Tempo run<b>5 km</b>${CKO}</li><li><span class="d">Sun</span>Long run<b>8 km</b>${CKO}</li></ul></div>` },
-  { k: 'spend', e: '💸', lb: 'Spending', h: 'Every payment, sorted on your phone.', app: 'gk', t: [900, 1300, 1100, 1200, 800],
-    p: 'It reads the payment notifications on your phone and sorts them as they come. Nothing it reads is sent anywhere.',
-    said: 'How much have I spent this month?',
-    body: () => `<div class="amt" data-s="1"><b class="cnt">${rup(18240)}</b><small>this month</small><em>₹2,100 less than last month by now</em></div>
-      <div class="sbar" data-s="2">${CAT.map(([, c, v], j) => `<i style="--w:${(v / 18240 * 100).toFixed(1)}%;--c:rgb(var(--${c}));--j:${j}"></i>`).join('')}</div>
-      <ul class="leg" data-s="2">${CAT.slice(0, 4).map(([n, c, v]) => `<li style="--c:rgb(var(--${c}))"><i></i>${n}<b>${rup(v)}</b></li>`).join('')}</ul>
-      <div class="pn" data-s="3"><img src="${B.phonepe}" alt=""><span class="x">Paid ₹450 to Swiggy<small>PhonePe · just now</small></span><span class="tg" style="--c:rgb(var(--or))"><i></i>Food & drinks</span></div>
-      <div class="cu" data-s="5"><span class="em">🧾</span>Coming up: Airtel postpaid, ₹799, tomorrow</div>` },
-  { k: 'wait', e: '⏳', lb: 'Waiting on', h: 'It notices when nothing happens.', app: 'gk', t: [1000, 1300, 900, 900],
-    p: 'What you asked people for, and what you promised. When nothing comes back, it asks, with the nudge already written.',
-    said: 'Remind me if Akash doesn’t pay by Friday',
-    body: () => `<ul class="wl"><li style="--c:var(--bl)"><span class="av">K</span><span class="x"><b>Karan</b><small>A reply about the invoice</small></span><span class="ag">3 days</span></li>
-        <li style="--c:var(--pu)"><span class="av">P</span><span class="x"><b>You, to Priya</b><small>Send the deck you promised</small></span><span class="ag">by Fri</span></li>
-        <li data-s="1" style="--c:var(--or)"><span class="av">A</span><span class="x"><b>Akash</b><small>₹1,200 for the electricity bill</small></span><span class="ag">by Fri</span></li></ul>
-      <div class="fp" data-s="2"><p class="fh">Friday · 10:00 AM</p><p class="bub">Did Akash pay?</p>
-        <div class="fa"><div class="chips ab" data-s="2" data-x="4"><span>He did</span><span data-p="3">Nudge him</span><span>Drop it</span></div>
-        <div class="dr ab" data-s="4"><p>“Hi Akash, a quick reminder about the ₹1,200 for the electricity bill 🙂”</p><span class="go"><img src="${B.whatsapp}" alt="">Send on WhatsApp</span></div></div></div>` },
-];
-// what a step changes beyond showing parts: her spending, before and after the new payment
-const MFX = {
-  spend(c, st, anim) {
-    const on = st >= 4, cnt = $('.cnt', c), food = $('.leg li', c), bar = $('.sbar i', c);
-    $('.pn', c).classList.toggle('sorted', on); food.classList.toggle('bump', on);
-    $('b', food).textContent = rup(on ? 6630 : 6180); bar.style.setProperty('--w', ((on ? 6630 : 6180) / 18240 * 100).toFixed(1) + '%');
-    const to = on ? 18690 : 18240;
-    if (anim && st === 1) { const t0 = performance.now(); const f = (n) => { const k = clamp((n - t0) / 900); cnt.textContent = rup(Math.round(to * ease(k) / 10) * 10); if (k < 1) requestAnimationFrame(f); }; requestAnimationFrame(f); }
-    else cnt.textContent = rup(to);
-  },
-};
-const MT = (v) => `<section class="more ${v}" id="more" aria-labelledby="h-more"><div class="wrap">
-  <div class="dh"><h2 id="h-more">It keeps track, so you don’t.</h2>
-    <p class="d">Goals, money, and the people you’re waiting on. It notices what didn’t happen, and brings it up before it slips.</p></div>
-  <div class="mtb" role="tablist" aria-label="What it keeps track of">${MO.map((m, i) => `<button type="button" role="tab" aria-selected="${i === 0}" data-i="${i}"><span class="em">${m.e}</span>${m.lb}<i></i></button>`).join('')}</div>
-  <div class="mg">${MO.map((m, i) => `<article class="mc${i === 0 ? ' cur' : ''}" data-k="${m.k}" aria-label="${m.lb}"><p class="lb"><span class="em">${m.e}</span>${m.lb}</p><h3>${m.h}</h3><p class="mp">${m.p}</p>
-    <div class="said"><span class="ms" aria-hidden="true">${MIC}</span><p class="st">${m.said}</p></div><div class="mb" aria-hidden="true">${m.body()}</div></article>`).join('')}</div>
-</div></section>`;
-
-// the mark comes down from the dock and says each one; the card builds what it heard
-let MORE = null;
-function mountMore(v) {
-  if (MORE) MORE.off();
-  if (v === 'C') return mountWeek();
-  if (v === 'D') return mountLine();
-  $('#morew').innerHTML = MT(v);
-  const sec = $('#more'), cards = $$('.mc', sec), tabs = $$('.mtb button', sec), N = MO.length;
-  let act = 0, b = 0, prev = null, hop0 = 0, tok = 0, gen = 0, busy = false;
-  const mob = () => v === 'A' && innerWidth <= 1100;
-  const setStep = (c, st, anim) => {
-    $$('[data-s]', c).forEach((e) => e.classList.toggle('on', +e.dataset.s <= st && !(e.dataset.x && st >= +e.dataset.x)));
-    $$('[data-p]', c).forEach((e) => e.classList.toggle('pk', st >= +e.dataset.p));
-    MFX[c.dataset.k]?.(c, st, anim);
-  };
-  const rest = () => cards.forEach((c, i) => { setStep(c, 99); $('.st', c).textContent = MO[i].said; c.classList.remove('live'); });
-  const show = (i) => {
-    act = i;
-    if (v === 'B') { cards.forEach((c, j) => c.classList.toggle('cur', j === i)); tabs.forEach((t, j) => { t.setAttribute('aria-selected', j === i); const bar = $('i', t); bar.style.transition = 'none'; bar.style.transform = 'scaleX(0)'; }); }
-  };
-  const W = (ms, my) => new Promise((res, rej) => setTimeout(() => (my === tok ? res() : rej(STOP)), ms));
-  const hopping = () => { tick(); if (performance.now() - hop0 < 720) requestAnimationFrame(hopping); };
-  async function play(i) {
-    const my = ++tok, c = cards[i], m = MO[i], st = $('.st', c), words = m.said.split(/(?<= )/);
-    try {
-      prev = v === 'A' && i !== act ? $('.ms', cards[act]) : null; show(i); hop0 = performance.now(); hopping();
-      cards.forEach((x) => x.classList.toggle('live', x === c));
-      if (v === 'B') { // the tab fills for as long as this one plays
-        const d = 700 + 500 + words.length * PACE + AFTER + 1300 + m.t.reduce((a, x) => a + x, 0) + CHOLD, bar = $('i', tabs[i]);
-        bar.offsetWidth; bar.style.transition = `transform ${d}ms linear`; bar.style.transform = 'scaleX(1)';
-      }
-      flyTo(); setStep(c, 0); st.innerHTML = '';
-      await W(700, my);
-      $('.i-app', fly).innerHTML = logo(m.app);
-      flyTo('listen'); flyListen(600); await W(500, my);
-      st.innerHTML = '<span class="caret"></span>';
-      const caret = $('.caret', st);
-      for (const t of words) {
-        const w = document.createElement('span'); w.className = 'w'; w.textContent = t;
-        caret.before(w); w.offsetWidth; w.classList.add('on'); flyListen(PACE + 400);
-        setTimeout(() => w.classList.add('set'), 420);
-        await W(PACE + (/[,.]\s*$/.test(t) ? COMMA : 0), my);
-      }
-      await W(AFTER, my); caret.remove();
-      flyTo('think'); await W(1300, my); flyTo('app');
-      for (let s = 1; s <= m.t.length; s++) { setStep(c, s, true); await W(m.t[s - 1], my); }
-      fly.classList.add('done');
-      await W(CHOLD, my);
-      return true;
-    } catch (e) { if (e !== STOP) console.error(e); return false; }
-  }
-  const nearest = () => { let k = 0, d = 1e9; cards.forEach((c, j) => { const r = c.getBoundingClientRect(), x = Math.abs(r.top + r.height * .4 - innerHeight / 2); if (x < d) { d = x; k = j; } }); return k; };
-  const run = async (from) => {
-    if (busy || RM) return; busy = true; const g = gen;
-    let i = from;
-    while (g === gen && b > .5) {
-      const ok = await play(i); if (!ok || g !== gen) break;
-      if (mob()) { // on a phone she reads one card at a time: wait for the next one
-        while (g === gen && b > .5 && nearest() === i) await new Promise((r) => setTimeout(r, 250));
-        i = nearest();
-      } else i = (i + 1) % N;
-    }
-    if (g === gen) busy = false;
-  };
-  const stop = () => { gen++; tok++; busy = false; flyTo(); rest(); };
-  tabs.forEach((t) => t.addEventListener('click', () => { stop(); show(+t.dataset.i); if (b > .5) run(act); }));
-  const onS = () => {
-    // follows the card's mic: comes down as it rises into view, lets go as it leaves at the top
-    const V = innerHeight, was = b, y = $('.ms', cards[mob() ? nearest() : act]).getBoundingClientRect().top;
-    b = ease(clamp((V - 24 - (y + 36)) / 80)) * ease(clamp((y - 24) / 80));
-    fly.classList.toggle('slim', b > 0);
-    if (b > 0 && !busy) cards[act].classList.add('live');
-    if (b <= 0 && was > 0) { stop(); if (v === 'A') act = 0; }
-    else if (mob() && busy && b > .5 && nearest() !== act) { stop(); run(nearest()); }
-    else if (b >= .9 && !busy) run(mob() ? nearest() : act);
-  };
-  const onP = () => {
-    if (b <= 0) return null;
-    const r = $('.ms', cards[act]).getBoundingClientRect();
-    let cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    const h = clamp((performance.now() - hop0) / 700);
-    if (prev && h < 1) { const q = prev.getBoundingClientRect(), e = ease(h); cx = lerp(q.left + q.width / 2, cx, e); cy = lerp(q.top + q.height / 2, cy, e); }
-    return { cx, cy: clamp(cy, 40, innerHeight - 40), s: 36, b };
-  };
-  SCROLLS.add(onS); POS.add(onP);
-  rest();
-  MORE = { off() { stop(); SCROLLS.delete(onS); POS.delete(onP); fly.classList.remove('slim'); } };
-  $$('.rv [data-mo]').forEach((x) => x.setAttribute('aria-pressed', x.dataset.mo === v));
-  try { localStorage.setItem('gk-more', v); } catch (e) {}
-  tick();
-}
-$$('.rv [data-mo]').forEach((x) => x.addEventListener('click', () => mountMore(x.dataset.mo)));
-
-// C: her week. Each thing she says paints onto it: the runs, where the money went, who still owes her
+// her week: day, date, what she spent
 const WD = [['Mon', 12, 320], ['Tue', 13, 1240], ['Wed', 14, 860], ['Thu', 15, 410], ['Fri', 16, 1690], ['Sat', 17], ['Sun', 18]];
-const WRUN = { 1: ['Easy run', '4 km', 1], 3: ['Tempo run', '5 km', 1], 6: ['Long run', '8 km', 0] };
 const WSAY = [['I want to run a half marathon in December', 'gcal'], ['How much have I spent this week?', 'gk'], ['Remind me if Akash doesn’t pay by Friday', 'gk']];
-const WT3 = () => `<section class="more C" id="more" aria-labelledby="h-more"><div class="stage">
-  <div class="wrap dh"><h2 id="h-more">It keeps track, so you don’t.</h2>
-    <p class="d">Goals, money, and the people you’re waiting on, all on the same week. It notices what didn’t happen.</p></div>
-  <div class="wrap wk">
-    <div class="wsay"><span class="wms" aria-hidden="true"></span><p class="tx2"></p></div>
-    <div class="bd" aria-hidden="true">
-      <div class="dys">${WD.map(([d, n, v], j) => `<div class="dc${j === 4 ? ' td' : ''}${j > 4 ? ' fu' : ''}"><span class="dn2">${d}<b>${n}</b></span>
-        ${WRUN[j] ? `<span class="rn"><span class="em">🏃</span><span class="x"><span class="nm">${WRUN[j][0]}</span><small>${WRUN[j][1]}</small></span>${WRUN[j][2] ? ck : CKO}</span>` : '<span></span>'}<span class="lane"></span>
-        <span class="sp2">${v ? `<i style="--h:${Math.round(v / 1690 * 100)}%;--j:${j}"></i><b style="--j:${j}">${rup(v)}</b>` : '<b class="no" style="--j:0">–</b>'}${j === 2 ? `<span class="pay"><img src="${B.phonepe}" alt="">₹450 · Swiggy</span>` : ''}</span></div>`).join('')}</div>
-      <div class="thr"><i></i><span class="a"><span class="em">🙋</span>Asked Akash for ₹1,200</span><span class="z"><span class="em">⏰</span>10 AM</span></div>
-      <div class="bot"><ul class="sum">
-          <li class="s0"><span class="em">🎯</span><b>Half marathon</b><small>Week 3 of 12 · three runs on your calendar</small></li>
-          <li class="s1"><span class="em">💸</span><b class="wtot">₹4,520 this week</b><small>₹600 less than last week</small></li>
-          <li class="s2"><span class="em">⏳</span><b>Akash</b><small>Nothing yet, so it asks</small></li></ul>
-        <div class="bub2"><p class="fh">Friday · 10:00 AM</p><p class="bub">Did Akash pay the ₹1,200?</p>
-          <div class="fa"><div class="chips ab"><span>He did</span><span class="n">Nudge him</span><span>Drop it</span></div>
-          <div class="dr ab"><p>“Hi Akash, a quick reminder about the ₹1,200 for the electricity bill 🙂”</p><span class="go"><img src="${B.whatsapp}" alt="">Send on WhatsApp</span></div></div></div></div>
-    </div>
-  </div></div></section>`;
-function mountWeek() {
-  $('#morew').innerHTML = WT3();
-  const sec = $('#more'), bd = $('.bd', sec), st = $('.tx2', sec), slot = $('.wms', sec), wk = $('.wk', sec), N = 3, WP = .7;
-  const LAY = [['l0'], ['l1', 'l1b', 'l1c'], ['l2', 'l2b', 'l2c', 'l2d']], LW = [[900], [1000, 1300, 900], [1900, 1200, 800, 1200]];
-  const tot = $('.wtot', sec), TOT = (v) => (tot.textContent = rup(v) + ' this week');
-  const paint = (n) => { LAY.forEach((ls, k) => ls.forEach((c) => bd.classList.toggle(c, k < n))); TOT(4520); };
-  let built = 0, target = 0, gen = 0, tok = 0, busy = false, b = 0;
-  const W = (ms, my) => new Promise((res, rej) => { if (RM) return my === tok ? res() : rej(STOP); setTimeout(() => (my === tok ? res() : rej(STOP)), ms); });
-  async function play(i, fast) {
-    const my = ++tok, T = (ms, f) => (fast() ? f : ms);
-    try {
-      flyTo(); st.innerHTML = ''; await W(T(350, 150), my);
-      $('.i-app', fly).innerHTML = logo(WSAY[i][1]);
-      flyTo('listen'); flyListen(600); await W(T(450, 150), my);
-      st.innerHTML = '<span class="caret"></span>'; const caret = $('.caret', st);
-      for (const t of WSAY[i][0].split(/(?<= )/)) {
-        const w = document.createElement('span'); w.className = 'w'; w.textContent = t;
-        caret.before(w); w.offsetWidth; w.classList.add('on'); flyListen(PACE + 400);
-        setTimeout(() => w.classList.add('set'), T(420, 140));
-        await W(T(PACE, 95), my);
-      }
-      await W(T(AFTER, 200), my); caret.remove();
-      flyTo('think'); await W(T(1200, 450), my); flyTo('app');
-      const ls = LAY[i];
-      if (i === 1 && !RM) { const t0 = performance.now(); const f = (n) => { const q = clamp((n - t0) / 900); TOT(Math.round(4520 * ease(q) / 10) * 10); if (q < 1) requestAnimationFrame(f); }; TOT(0); requestAnimationFrame(f); }
-      for (let k = 0; k < ls.length; k++) { bd.classList.add(ls[k]); await W(T(LW[i][k], 300), my); }
-      fly.classList.add('done');
-      return true;
-    } catch (e) { if (e !== STOP) console.error(e); return false; }
-  }
-  const run = async () => {
-    if (busy) return; busy = true; const g = gen;
-    while (g === gen && target > built) {
-      const i = built; wk.classList.add('live');
-      const ok = await play(i, () => target > i + 1); if (!ok || g !== gen) break;
-      built = i + 1;
-      if (target > built) await new Promise((r) => setTimeout(r, RM ? 0 : 600));
-    }
-    if (g === gen) busy = false;
-  };
-  const halt = () => { gen++; tok++; busy = false; };
-  const onS = () => {
-    const V = innerHeight, y = scrollY - sec.offsetTop, end = (PE + N * WP) * V;
-    const sc = clamp((y - PE * V) / (WP * V), 0, N - 1e-6);
-    b = ease(clamp((y + .35 * V) / (.35 * V))) * (1 - ease(clamp((y - end - .02 * V) / (.28 * V))));
-    const live = y > -.05 * V && y < end + .6 * V, t = live ? Math.floor(sc) + 1 : y <= -.05 * V ? 0 : target;
-    if (y < -.6 * V && built) { halt(); built = target = 0; paint(0); st.innerHTML = ''; flyTo(); wk.classList.remove('live'); return; }
-    if (y > end + .9 * V && busy) { halt(); built = target; paint(built); st.textContent = WSAY[built - 1][0]; flyTo(); return; }
-    if (t < built) { halt(); built = target = t; paint(t); st.textContent = t ? WSAY[t - 1][0] : ''; flyTo(t ? 'done' : undefined); }
-    else if (t !== target) { target = t; run(); }
-  };
-  const onP = () => { if (b <= 0) return null; const r = slot.getBoundingClientRect(); return { cx: r.left + r.width / 2, cy: r.top + r.height / 2, s: 48, b }; };
-  SCROLLS.add(onS); POS.add(onP);
-  const size = () => (sec.style.height = innerHeight * (1 + PE + N * WP + PX) + 'px');
-  size(); addEventListener('resize', size);
-  MORE = { off() { halt(); SCROLLS.delete(onS); POS.delete(onP); removeEventListener('resize', size); fly.classList.remove('slim'); flyTo(); } };
-  $$('.rv [data-mo]').forEach((x) => x.setAttribute('aria-pressed', x.dataset.mo === 'C'));
-  try { localStorage.setItem('gk-more', 'C'); } catch (e) {}
-  tick();
-}
 
-// D: no board. What it keeps is written back, one sentence per thing said, the live parts set inline
+// what it keeps is written back, one sentence per thing said, the live parts set inline
 const LCH = {
   tk: `<span class="ch g ltk">${Array.from({ length: 12 }, (_, j) => `<i class="${j < 3 ? 'f' : ''}" style="--j:${j}"></i>`).join('')}<small>3/12</small></span>`,
   r1: `<span class="ch g"><span class="em">🏃</span>Tue · 4 km<span class="ck" style="--j:0">${CHK}</span></span>`,
@@ -744,8 +520,6 @@ function mountLine() {
   SCROLLS.add(onS); POS.add(onP);
   const size = () => (sec.style.height = innerHeight * (1 + PE + N * WP + PX) + 'px');
   size(); addEventListener('resize', size);
-  MORE = { off() { halt(); SCROLLS.delete(onS); POS.delete(onP); removeEventListener('resize', size); fly.classList.remove('slim'); flyTo(); } };
-  $$('.rv [data-mo]').forEach((x) => x.setAttribute('aria-pressed', x.dataset.mo === 'D'));
   tick();
 }
 
@@ -908,23 +682,11 @@ function mountEnd() {
 
 const setTheme = (t) => {
   if (t === 'auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.dataset.theme = t;
-  $$('.rv [data-t]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.t === t));
   try { localStorage.setItem('gk-theme', t); } catch (e) {}
 };
-$$('.rv [data-t]').forEach((b) => b.addEventListener('click', () => setTheme(b.dataset.t)));
 // the nav's own switch: whatever it looks like now, go the other way
 const isDark = () => document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
 document.addEventListener('click', (e) => { const b = e.target.closest('.thm'); if (!b) return; setTheme(isDark() ? 'light' : 'dark'); });
-const setRuler = (r) => {
-  const d = $('#day'); if (d) { d.classList.remove('rA', 'rB', 'rC'); d.classList.add('r' + r); }
-  $$('.rv [data-ru]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.ru === r));
-};
-$$('.rv [data-ru]').forEach((b) => b.addEventListener('click', () => setRuler(b.dataset.ru)));
-const setLogo = (l) => {
-  document.documentElement.classList.toggle('lg-m', l === 'm');
-  $$('.rv [data-lg]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.lg === l));
-};
-$$('.rv [data-lg]').forEach((b) => b.addEventListener('click', () => setLogo(b.dataset.lg)));
 // welcome: the name comes up, its o becomes the mark and listens, then it all flies to the corner
 function intro() {
   if (RM || $('.intro')) return;
@@ -943,10 +705,9 @@ function intro() {
   at(2700, () => lo.classList.remove('live'));
   at(3100, () => {
     // line the big o up with the small one: scale by their heights, move by their corners
-    const m = html.classList.contains('lg-m'), t = $('#live .brand ' + (m ? '.bm' : '.lo')), o = lg.getBoundingClientRect(), a = (m ? lg : lo).getBoundingClientRect(), b = t.getBoundingClientRect();
+    const t = $('#live .brand .lo'), o = lg.getBoundingClientRect(), a = lo.getBoundingClientRect(), b = t.getBoundingClientRect();
     const k = b.height / a.height;
     lg.style.transform = `translate(${b.left - o.left - (a.left - o.left) * k}px,${b.top - o.top - (a.top - o.top) * k}px) scale(${k})`;
-    if (html.classList.contains('lg-m')) ov.classList.add('fade');
     ov.classList.add('go');
   });
   at(4150, end);
@@ -954,11 +715,9 @@ function intro() {
 {
   let t = 'auto'; try { t = localStorage.getItem('gk-theme') || 'auto'; } catch (e) {}
   setTheme(t);
-  setLogo('w');
-  setRuler('C');
   mount('1');
   mountW();
-  mountMore('D');
+  mountLine();
   mountApps();
   mountEnd();
   let seen = false; try { seen = !!sessionStorage.getItem('gk-intro'); sessionStorage.setItem('gk-intro', '1'); } catch (e) {}
