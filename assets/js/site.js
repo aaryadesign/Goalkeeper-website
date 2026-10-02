@@ -638,11 +638,16 @@ function mountEnd() {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())) { form.classList.remove('bad'); form.offsetWidth; form.classList.add('bad'); ok.textContent = 'That email doesn’t look right.'; em.focus(); return; }
-    const url = form.dataset.endpoint;
-    if (!url) { ok.textContent = 'The early access list opens soon. Check back in a few days.'; return; }
+    // the waitlist lives in Supabase; the public key can only call join_waitlist()
+    const { supabase: base, key } = form.dataset;
+    if (!base || !key) { ok.textContent = 'The early access list opens soon. Check back in a few days.'; return; }
+    const done = () => { ok.innerHTML = '<b>You’re on the list.</b> We’ll email you when it’s ready.'; em.value = ''; };
+    if (form.website.value) return done(); // the hidden field only bots fill in
     ok.textContent = 'Sending…';
-    fetch(url, { method: 'POST', headers: { Accept: 'application/json' }, body: new URLSearchParams({ email: em.value.trim() }) })
-      .then((r) => { if (!r.ok) throw r; ok.innerHTML = '<b>You’re on the list.</b> We’ll email you when it’s ready.'; em.value = ''; })
+    const headers = { apikey: key, 'Content-Type': 'application/json' };
+    if (key.startsWith('eyJ')) headers.Authorization = 'Bearer ' + key; // the older anon key is a JWT
+    fetch(base + '/rest/v1/rpc/join_waitlist', { method: 'POST', headers, body: JSON.stringify({ p_email: em.value.trim(), p_source: location.hostname || null, p_referrer: document.referrer || null }) })
+      .then((r) => { if (!r.ok) throw r; done(); })
       .catch(() => { ok.textContent = 'That didn’t go through. Try again in a minute.'; });
   });
   // the name fills the width

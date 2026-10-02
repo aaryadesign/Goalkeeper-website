@@ -48,6 +48,6 @@ The previous design is kept on the `Old-Design` branch.
 
 - **Type and emoji.** Geist for everything. No serif anywhere. Emoji are set in Google's Noto Color Emoji, so the page looks the same on every phone.
 - **Light and dark.** It follows the system until someone taps the moon or sun in the nav; that choice is remembered.
-- **Sign-up form.** The form posts the email to the URL in `data-endpoint` on the `.sg` form in `index.html`, as the field `email`, with `Accept: application/json`. Formspree, a Google Apps Script web app or your own endpoint all work. Until one is set, submitting says the list opens soon, and nothing is sent anywhere.
+- **Sign-up form.** Emails go to the `waitlist` table in Supabase. The form calls `join_waitlist()` with the project URL and public key set on the `.sg` form in `index.html` (`data-supabase`, `data-key`). The public key can only add an email: it can't read, change or delete the list, and it answers the same way for a new email and one already on the list. A hidden field catches bots. Until `data-key` is set, submitting says the list opens soon, and nothing is sent anywhere. The table and function are in `supabase/migrations/`; run that file once in the Supabase SQL editor.
 - **Reduced motion.** With reduced motion on, everything settles into its finished state and the welcome doesn't play.
 - **Link preview.** The `og:` and `twitter:` tags in `index.html` point to `https://goalkeeper-dun.vercel.app/`. Previews need the full address, so if the site moves to another domain, change those URLs.
