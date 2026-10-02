@@ -15,10 +15,10 @@ img{max-width:100%;display:block}
 
 /* hero frame: always exactly one screen */
 .hero{position:relative;height:100svh;min-height:560px;display:flex;flex-direction:column;overflow:hidden}
-.nav{display:flex;align-items:center;height:64px;gap:36px;flex:none}
+.nav{position:relative;display:flex;align-items:center;height:64px;gap:36px;flex:none}
 .brand{display:flex;align-items:center;gap:8px;font-weight:500;font-size:15.5px;letter-spacing:-.01em}
 .brand svg{width:20px;height:20px}
-.links{display:flex;gap:28px;font-size:14px}
+.links{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:28px;font-size:14px;white-space:nowrap}
 .nbtn{margin-left:auto;display:inline-flex;align-items:center;height:36px;padding:0 16px;border-radius:999px;background:var(--btn);color:var(--btnf);font-size:14px;font-weight:500}
 .hc{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-block:0 48px}
 .eb{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 5px 0 14px;border-radius:999px;background:var(--surf);font-size:13.5px;color:var(--sub);margin-bottom:22px}
