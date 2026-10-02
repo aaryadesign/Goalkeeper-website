@@ -29,6 +29,7 @@ Push the folder as it is to GitHub Pages, Netlify, Vercel or Cloudflare Pages. T
 | `assets/brands/` | App icons, from the Goalkeeper app's `drawable-nodpi/brand_*.png` |
 | `assets/og.jpg` | The link preview (2400×1260) |
 | `favicon.svg` | The listening oval, on its own |
+| `404.html` | The page for links that go nowhere. The 0 is the oval: it listens, hears nothing, and writes back that it didn't catch that page. Vercel serves it on its own |
 
 The previous design is kept on the `Old-Design` branch.
 
