@@ -725,6 +725,8 @@ function intro() {
   mountLine();
   mountApps();
   mountEnd();
-  let seen = false; try { seen = !!sessionStorage.getItem('gk-intro'); sessionStorage.setItem('gk-intro', '1'); } catch (e) {}
-  if (!seen && !location.hash) intro();
+  // plays on every load and refresh; not when coming back with the back button, or on a link straight to a section
+  const nav = (performance.getEntriesByType('navigation')[0] || {}).type;
+  if (nav === 'reload' && location.hash) history.replaceState(null, '', location.pathname + location.search);
+  if (nav !== 'back_forward' && !location.hash) intro();
 }

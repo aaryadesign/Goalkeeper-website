@@ -34,7 +34,7 @@ The previous design is kept on the `Old-Design` branch.
 
 ## The page, top to bottom
 
-- **Welcome.** The wordmark rises letter by letter, its "o" turns into the mic and listens, then the whole thing flies into the nav. It plays once per browser session, never with reduced motion, and a click, key or scroll skips it (`intro()`).
+- **Welcome.** The wordmark rises letter by letter, its "o" turns into the mic and listens, then the whole thing flies into the nav. It plays on every load and refresh, but not when coming back with the back button, on a link straight to a section, or with reduced motion, and a click, key or scroll skips it (`intro()`).
 - **Hero.** "Say it and it's ready." The mic in the headline plays the moments in `TB`.
 - **The mic.** Once you scroll, the mic leaves the headline and docks at the bottom. Each section can borrow it: they register in `SCROLLS` (what to do on scroll), `POS` (where the mic should be) and `CLICKS` (what a tap means).
 - **Neha's Tuesday.** `DAY` holds the eight moments. The mic is the playhead on the day's timeline.
