@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..600&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&text=%F0%9F%8F%A0%E2%9C%8D%EF%B8%8F&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&text=%F0%9F%8F%A0%E2%9C%8D%EF%B8%8F%F0%9F%9A%95%F0%9F%8D%9B%F0%9F%92%B8%F0%9F%8E%82%E2%9C%88%EF%B8%8F%F0%9F%9B%92%F0%9F%93%85%F0%9F%92%8A%E2%98%95%F0%9F%8E%A7%F0%9F%91%9F&display=swap" rel="stylesheet">
 <script>try { const t = localStorage.getItem('gk-theme'); if (t && t !== 'auto') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <style>
 :root{--bg:#F4F1EA;--fg:#161513;--sub:#6E6961;--mute:#B4AEA4;--line:rgba(22,21,19,.1);--surf:#E8E4DC;--btn:#161513;--btnf:#F4F1EA;color-scheme:light}
@@ -56,11 +56,42 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;justify-conten
 .ov::after{content:"";position:absolute;inset:-.07em;border-radius:.4em;border:2px solid var(--fg);opacity:0;pointer-events:none}
 @keyframes ping{from{opacity:.35;transform:scale(1)}to{opacity:0;transform:scale(1.18)}}
 .ov.live::after{animation:ping 1.6s ease-out infinite}
+/* the ring nudges the 4s out of the way each time it pings */
+@keyframes shL{0%,45%,100%{transform:none}14%{transform:translateX(-.04em) rotate(-5deg)}}
+@keyframes shR{0%,45%,100%{transform:none}14%{transform:translateX(.04em) rotate(5deg)}}
+.big.live .d:first-child{animation:shL 1.6s cubic-bezier(.3,1.4,.5,1) infinite}
+.big.live .d:last-child{animation:shR 1.6s cubic-bezier(.3,1.4,.5,1) infinite}
+/* thinking: the dots do a little wave */
+@keyframes wv{0%,60%,100%{transform:none}30%{transform:translateY(-.06em)}}
+.ov.think i{height:.045em;animation:wv .9s ease-in-out infinite}
+.ov.think i:nth-child(2){animation-delay:.09s}.ov.think i:nth-child(3){animation-delay:.18s}.ov.think i:nth-child(4){animation-delay:.27s}.ov.think i:nth-child(5){animation-delay:.36s}
+/* wrong guess: a shake; the right one: a happy hop */
+@keyframes nope{20%{transform:translateX(-.05em)}40%{transform:translateX(.04em)}60%{transform:translateX(-.025em)}80%{transform:translateX(.012em)}}
+.ov.nope{animation:nope .5s ease-in-out}
+.ov.nope i{height:.045em}
+@keyframes yay{0%,100%{transform:none}25%{transform:translateY(.02em) scale(1.06,.9)}55%{transform:translateY(-.09em) scale(.96,1.05)}80%{transform:translateY(0) scale(1.02,.97)}}
+.ov.yay{animation:yay .7s cubic-bezier(.3,1.2,.5,1)}
+.ov.yay i{height:calc(var(--h) * 1.25em)}
+
+/* what it thinks you meant, written back like the app does */
+.cap{display:flex;align-items:center;justify-content:center;gap:0;min-height:28px;margin-top:clamp(18px,3.4vh,30px);font-size:16px;color:var(--sub);white-space:nowrap;max-width:100%}
+.cap .w{position:relative;color:var(--fg);overflow:hidden;text-overflow:ellipsis}
+.cap .em{font-size:17px;margin:0 .12em}
+.cap .x{position:absolute;left:0;top:52%;height:1.5px;width:100%;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.65,0,.35,1)}
+.cap.no .x{transform:scaleX(1)}
+.cap.no .w{color:var(--sub)}
+.cap .ok{color:var(--sub);margin-left:.35em}
+.cap .c{display:inline-block;width:2px;height:1em;margin-left:2px;background:var(--fg);animation:blink 1s steps(1) infinite}
+@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+.cap .ld::after{content:"";display:inline-block;width:1.2em;text-align:left;animation:dots 1.2s steps(1) infinite}
+@keyframes glow{0%{box-shadow:0 0 0 0 var(--fg)}100%{box-shadow:0 0 0 12px transparent}}
+.b1.nudge{animation:glow 1s ease-out 2}
+.fx{position:fixed;left:0;top:0;z-index:5;pointer-events:none;font-size:clamp(26px,4vw,40px)}
 
 /* what it heard, written back like the app does */
-.said{display:inline-flex;align-items:center;gap:8px;max-width:100%;margin-top:clamp(20px,4vh,36px);height:32px;padding:0 14px;border-radius:999px;background:var(--surf);font-size:13px;color:var(--sub);opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
+.said{display:inline-flex;align-items:center;gap:8px;max-width:100%;margin-top:22px;height:30px;padding:0 14px;border-radius:999px;background:var(--surf);font-size:13px;color:var(--sub);opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
 .said code{font:inherit;color:var(--fg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-h1{margin:18px 0 0;font-size:clamp(26px,3.4vw,36px);line-height:1.1;font-weight:480;letter-spacing:-.035em;text-wrap:balance;min-height:1.1em}
+h1{margin:14px 0 0;font-size:clamp(26px,3.4vw,36px);line-height:1.1;font-weight:480;letter-spacing:-.035em;text-wrap:balance;min-height:1.1em}
 h1 .c{display:inline-block;width:2px;height:.9em;margin-left:2px;vertical-align:-.08em;background:var(--fg);animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .sub{margin:10px 0 0;max-width:30em;font-size:15.5px;line-height:1.55;color:var(--sub);text-wrap:pretty;opacity:0;transition:opacity .5s .1s}
@@ -73,7 +104,7 @@ h1 .c{display:inline-block;width:2px;height:.9em;margin-left:2px;vertical-align:
 .btn .em{font-size:16px}
 .done .said,.done .act{opacity:1;transform:none}
 .done .sub{opacity:1}
-.hint{margin-top:18px;font-size:12.5px;color:var(--mute);opacity:0;transition:opacity .6s .6s}
+.hint{margin-top:10px;font-size:12.5px;color:var(--mute);opacity:0;transition:opacity .6s .6s}
 .done .hint{opacity:1}
 
 footer{display:flex;justify-content:space-between;gap:12px;max-width:1160px;width:100%;margin:0 auto;padding-block:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--sub)}
@@ -85,6 +116,7 @@ footer{display:flex;justify-content:space-between;gap:12px;max-width:1160px;widt
   main{padding-block:8px 40px}
   footer{flex-direction:column;gap:2px}
 }
+@media (max-width:520px){.cap{flex-wrap:wrap;align-content:center;min-height:50px;font-size:14.5px}.cap .em{font-size:15.5px}.cap .ok{flex-basis:100%;margin:2px 0 0}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important}
 }
@@ -94,43 +126,93 @@ footer{display:flex;justify-content:space-between;gap:12px;max-width:1160px;widt
 <header class="nav"><a href="/" aria-label="Goalkeeper home"><span class="gkw">G<span class="o"><span><i style="--h:.165"></i><i style="--h:.255"></i><i style="--h:.3"></i><i style="--h:.255"></i><i style="--h:.165"></i></span></span>alkeeper</span></a></header>
 <main id="m">
   <p class="big" aria-label="404"><span class="d" aria-hidden="true">4</span><button class="ov" type="button" aria-label="Listen again"><span><i style="--h:.12"></i><i style="--h:.19"></i><i style="--h:.24"></i><i style="--h:.19"></i><i style="--h:.12"></i></span></button><span class="d" aria-hidden="true">4</span></p>
-  <p class="said"><span>You asked for</span><code id="path">/</code></p>
+  <p class="cap" id="cap" aria-hidden="true"></p>
   <h1 id="t" aria-live="polite"></h1>
   <p class="sub">The link might be old, or a letter’s off. Nothing’s lost. The homepage is one tap away.</p>
   <div class="act">
     <a class="btn b1" href="/"><span class="em">🏠</span>Back to the homepage</a>
     <a class="btn b2" href="/#join"><span class="em">✍️</span>Join the waitlist</a>
   </div>
-  <p class="hint">Tap the oval to make it listen again.</p>
+  <p class="said"><span>You asked for</span><code id="path">/</code></p>
+  <p class="hint">Tap the oval. It likes that.</p>
 </main>
 <footer><span>© 2026 Goalkeeper</span><span>Made for full days.</span></footer>
 <script>
 (() => {
-  const m = document.getElementById('m'), ov = m.querySelector('.ov'), t = document.getElementById('t');
+  const m = document.getElementById('m'), big = m.querySelector('.big'), ov = m.querySelector('.ov'), t = document.getElementById('t'), cap = document.getElementById('cap'), home = m.querySelector('.b1');
   const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const LINE = 'Hmm, didn’t catch that page.';
+  // the things people actually say to it; it guesses two, then lands on home
+  const WRONG = [['🚕', 'a cab to the airport at 6'], ['🍛', 'biryani tonight'], ['💸', 'asking Akash for the ₹1,200'], ['🎂', 'Mom’s birthday on Friday'], ['🛒', 'milk and eggs'], ['✈️', 'the Goa flight'], ['💊', 'the 9 pm medicine'], ['☕', 'coffee with Riya at 4'], ['👟', 'a run before work']];
   let p = location.pathname + location.search;
   try { p = decodeURIComponent(p); } catch (e) {}
   document.getElementById('path').textContent = p.length > 1 ? p : '/404';
-  let timers = [];
-  const at = (ms, f) => timers.push(setTimeout(f, ms));
-  const type = () => {
-    const tx = document.createTextNode(''), c = document.createElement('span');
-    c.className = 'c'; t.replaceChildren(tx, c);
-    let i = 0;
-    const step = () => { tx.data = LINE.slice(0, ++i); if (i < LINE.length) at(28 + Math.random() * 30, step); else at(900, () => c.remove()); };
-    step();
+
+  let run = 0;
+  const wait = (ms, r) => new Promise((ok, no) => setTimeout(() => (r === run ? ok() : no()), ms));
+  const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+  const state = (s) => { ov.className = 'ov' + (s ? ' ' + s : ''); big.classList.toggle('live', s === 'live'); };
+  const typeInto = async (node, str, r, ms = 34) => { for (const ch of Array.from(str)) { node.data += ch; await wait(ms + Math.random() * 26, r); } };
+
+  const headline = async (r) => {
+    const tx = document.createTextNode(''), c = el('span', 'c'); t.replaceChildren(tx, c);
+    await typeInto(tx, LINE, r, 26); await wait(900, r); c.remove();
   };
-  // it listens, hears nothing it knows, and writes that back
-  const listen = (first) => {
-    timers.forEach(clearTimeout); timers = [];
-    ov.classList.remove('flat'); ov.classList.add('live');
-    if (!first) t.textContent = '';
-    at(first ? 1500 : 1300, () => { ov.classList.remove('live'); ov.classList.add('flat'); type(); m.classList.add('done'); });
+  const guess = async ([e, what], right, r) => {
+    cap.className = 'cap'; cap.replaceChildren(el('span', 'ld', 'Listening'));
+    state('live'); await wait(1700, r);
+    state('think'); await wait(800, r);
+    const w = el('span', 'w'), tx = document.createTextNode(''), c = el('span', 'c');
+    w.append(tx); cap.replaceChildren(document.createTextNode('Did you mean'), el('span', 'em', e), w, c);
+    state('flat'); await typeInto(tx, what + '?', r);
+    if (!right) {
+      await wait(650, r); w.append(el('span', 'x')); state('nope'); cap.classList.add('no'); c.remove();
+      await wait(1100, r);
+    } else {
+      c.remove(); state('yay'); const ok = el('span', 'ok'); cap.append(ok);
+      await typeInto(ok.appendChild(document.createTextNode('')), 'That one I can do.', r, 26);
+      home.classList.remove('nudge'); void home.offsetWidth; home.classList.add('nudge');
+      await wait(2800, r);
+    }
   };
-  if (RM) { m.classList.add('in', 'done'); ov.classList.add('flat'); t.textContent = LINE; }
-  else { requestAnimationFrame(() => requestAnimationFrame(() => m.classList.add('in'))); at(1000, () => listen(true)); }
-  ov.addEventListener('click', () => { if (!RM) listen(false); });
+  const loop = async (r, first) => {
+    if (first) { state('live'); await wait(1500, r); state('flat'); await headline(r); m.classList.add('done'); await wait(500, r); }
+    for (;;) {
+      const pick = WRONG.slice().sort(() => Math.random() - .5).slice(0, 2);
+      for (const g of pick) await guess(g, false, r);
+      await guess(['🏠', 'the homepage'], true, r);
+    }
+  };
+  const start = (first) => { run++; loop(run, first).catch(() => {}); };
+
+  // tap: everything it could set up spills out of the oval
+  const burst = () => {
+    const b = ov.getBoundingClientRect(), x = b.left + b.width / 2, y = b.top + b.height / 2;
+    const all = WRONG.map((w) => w[0]).concat('📅', '🎧').sort(() => Math.random() - .5).slice(0, 9);
+    all.forEach((e, k) => {
+      const f = el('span', 'fx em', e); document.body.append(f);
+      const a = -Math.PI / 2 + (k / (all.length - 1) - .5) * 2.4 + (Math.random() - .5) * .3, d = b.width * (.55 + Math.random() * .5);
+      const dx = Math.cos(a) * d, dy = Math.sin(a) * d, rot = (Math.random() - .5) * 70;
+      f.animate([
+        { transform: `translate(${x}px,${y}px) translate(-50%,-50%) scale(.2)`, opacity: 0 },
+        { transform: `translate(${x + dx * .7}px,${y + dy * .7}px) translate(-50%,-50%) scale(1.1) rotate(${rot * .5}deg)`, opacity: 1, offset: .35 },
+        { transform: `translate(${x + dx}px,${y + dy + b.height * .9}px) translate(-50%,-50%) scale(.9) rotate(${rot}deg)`, opacity: 0 }
+      ], { duration: 1300 + Math.random() * 400, easing: 'cubic-bezier(.2,.7,.4,1)' }).onfinish = () => f.remove();
+    });
+  };
+
+  if (RM) {
+    m.classList.add('in', 'done'); state('flat'); t.textContent = LINE;
+    cap.replaceChildren(document.createTextNode('Did you mean'), el('span', 'em', '🏠'), el('span', 'w', 'the homepage?'));
+  } else {
+    requestAnimationFrame(() => requestAnimationFrame(() => m.classList.add('in')));
+    setTimeout(() => start(true), 1000);
+  }
+  ov.addEventListener('click', () => {
+    if (RM) return;
+    burst();
+    if (m.classList.contains('done')) start(false);
+  });
 })();
 </script>
 </body>
