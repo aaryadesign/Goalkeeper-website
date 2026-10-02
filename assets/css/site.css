@@ -405,6 +405,8 @@ h1{--h:clamp(38px,4.4vw,64px);margin:0;font-size:var(--h);line-height:1.06;font-
 .wm.on .wo,.wm.fit .wo{width:calc(.56em * 1.6 / .92)}
 .wm.fit .wo{transition:none}
 .fbot{display:flex;justify-content:space-between;gap:16px;padding-block:6px 28px;font-size:13px;color:var(--sub)}
+.by{color:var(--fg);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px;transition:text-decoration-color .2s}
+.by:hover,.by:focus-visible{text-decoration-color:currentColor}
 @media (max-width:900px){.tr{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 22px}}
 @media (max-width:720px){
   .fin .d{font-size:16px}
