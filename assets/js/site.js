@@ -49,6 +49,39 @@ fly.addEventListener('click', () => { for (const f of CLICKS) if (f()) return; s
 const lerp = (a, b, t) => a + (b - a) * t, clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const ease = (p) => (p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
 
+// big screens: the pinned sections lay out at laptop proportions, then scale up to fill the screen, centred with room above and below
+let BIG = 1;
+const sizeBig = () => {
+  const mob = innerWidth <= 720, rs = document.documentElement.style;
+  BIG = mob ? 1 : clamp(Math.min(innerWidth / 1440, innerHeight / 900), 1, 2);
+  const vh = Math.min(innerHeight / BIG, 940);
+  rs.setProperty('--big', BIG); rs.setProperty('--vvh', mob ? '100%' : vh + 'px'); rs.setProperty('--vvy', mob ? '0px' : (innerHeight - vh * BIG) / 2 + 'px');
+};
+sizeBig(); addEventListener('resize', sizeBig);
+const bigStage = (sec) => { const stg = $('.stage', sec), vv = document.createElement('div'); vv.className = 'vv'; [...stg.children].forEach((c) => { if (!c.classList.contains('atl')) vv.append(c); }); stg.append(vv); return vv; };
+// where something sits inside a stage, before any glide is applied
+const yIn = (el, root) => { let y = 0; while (el && el !== root) { y += el.offsetTop; el = el.offsetParent; } return y; };
+// keep what's showing in the middle of the room, and glide up as more of it appears
+function centre(sec, top, bottom, room) {
+  const vv = $('.vv', sec); let cy = 0, low = 0, q = 0, follow = 0;
+  const run = () => {
+    q = 0;
+    if (innerWidth <= 720) { sec.style.setProperty('--cy', '0px'); return; }
+    const r = sec.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) low = 0;   // a fresh start each time it comes into view
+    const t = yIn(top(), vv); low = Math.max(low, bottom()); const [a, z] = room();
+    const want = Math.round(Math.max(a + 24 - t, (a + z - t - low) / 2));
+    if (Math.abs(want - cy) < 2) return;
+    cy = want; sec.style.setProperty('--cy', cy + 'px');
+    // the mark rides along while the content glides
+    const t0 = performance.now(); cancelAnimationFrame(follow);
+    const go = () => { tick(); if (performance.now() - t0 < 1000) follow = requestAnimationFrame(go); }; follow = requestAnimationFrame(go);
+  };
+  const later = () => { if (!q) q = requestAnimationFrame(run); };
+  new MutationObserver(later).observe(vv, { subtree: true, childList: true, attributes: true, attributeFilter: ['class'], characterData: true });
+  addEventListener('resize', () => { low = 0; later(); }); SCROLLS.add(later); later();
+}
+
 function mount(o) {
   $('#live').innerHTML = TPL[o]();
   const hero = $('#live .hero'); CUR = hero;
@@ -299,18 +332,20 @@ const DRUN = {
       const hw = 1.9 * 48 / 2 + 8;
       px = clamp(r.left + fr * r.width, hw, innerWidth - hw); ty = r.top + r.height / 2;
       fill.style.clipPath = `inset(0 ${(1 - fr) * 100}% 0 0)`;
-      tag.textContent = fmt(clock); tag.style.left = px - r.left + 'px'; tag.style.opacity = st.b;
+      tag.textContent = fmt(clock); tag.style.left = (px - r.left) / BIG + 'px'; tag.style.opacity = st.b;
       hls.forEach((l) => (l.style.opacity = st.b > .3 && Math.abs((l.dataset.m - clock) / (D1 - D0) * r.width) < 36 ? 0 : 1));
       step.step(st);
     });
-    POS.add(() => (st && st.b > 0 ? { cx: px, cy: Math.min(ty, innerHeight - 52), s: 48, b: st.b } : null));
+    POS.add(() => (st && st.b > 0 ? { cx: px, cy: Math.min(ty, innerHeight - 52), s: 48 * BIG, b: st.b } : null));
   },
 
 };
 
 function sizeDay() { const sec = $('#day'); if (sec) sec.style.height = innerHeight * (1 + PE + M * PP + PX) + 'px'; }
 $('#dayw').innerHTML = DT.a();
-sizeDay(); DRUN.a($('#day'));
+bigStage($('#day')); sizeDay(); DRUN.a($('#day'));
+{ const sec = $('#day'), vv = $('.vv', sec), bot = (e) => yIn(e, vv) + e.offsetHeight;
+  centre(sec, () => $('h2', sec), () => Math.max(bot($('.tx', sec)), ...$$('.rs.on,.hint.on', sec).map(bot)), () => [0, yIn($('.rl', sec), vv)]); }
 
 // ---------- the widget, as designed in the app ----------
 const RGB = { g: '38,179,122', o: '242,153,46', b: '47,123,246', p: '148,103,240', k: '238,76,138' };
@@ -378,7 +413,7 @@ const WT = () => `<section class="wsec A" id="widget" aria-labelledby="h-w"><div
 
 // pinned: scroll moves her day, the widget on the phone follows. On the 4×4 the mark rides in its Talk button.
 function mountW() {
-  $('#wgw').innerHTML = WT();
+  $('#wgw').innerHTML = WT(); bigStage($('#widget'));
   const sec = $('#widget'), N = WM.length, ph = $('.ph', sec), phw = $('.phw', sec), wg = $('.pwg', sec), lis = $$('.ml li', sec), cap = $('.wcap', sec), bs = $$('.szs button', sec);
   let sz = '42', cur = -1, last = '', b = 0, clock = WM[0].m;
   const body = (i, c) => sz === '42' ? fitw(w42(heroAt(i, c)), .811)
@@ -463,7 +498,9 @@ const LT = () => `<section class="more D" id="more" aria-labelledby="h-more"><di
     <p class="para">${LS.map((t, i) => t.split(' ').map((w) => `<span class="q${/\{/.test(w) ? ' c' : ''}" data-i="${i}">${w.replace(/\{(\w+)\}/g, (_, k) => LCH[k])}</span>`).join(' ')).join(' ')}</p>
   </div></div></section>`;
 function mountLine() {
-  $('#morew').innerHTML = LT();
+  $('#morew').innerHTML = LT(); bigStage($('#more'));
+  { const sec = $('#more'), vv = $('.vv', sec), bot = (e) => yIn(e, vv) + e.offsetHeight;
+    centre(sec, () => $('h2', sec), () => Math.max(bot($('.wsay', sec)), ...$$('.para .q.on', sec).map(bot)), () => [0, vv.offsetHeight]); }
   const sec = $('#more'), para = $('.para', sec), st = $('.tx2', sec), slot = $('.wms', sec), N = 3, WP = .7;
   const qs = (i) => $$(`.q[data-i="${i}"]`, para), cn = $('.lamt .cn', para), AMT = (v) => (cn.textContent = rup(v));
   const paint = (n) => { $$('.q', para).forEach((q) => q.classList.toggle('on', +q.dataset.i < n)); para.classList.toggle('go', n >= 3); para.classList.remove('dim'); AMT(4520); };
@@ -516,7 +553,7 @@ function mountLine() {
     if (t < built) { halt(); built = target = t; paint(t); st.textContent = t ? WSAY[t - 1][0] : ''; flyTo(t ? 'done' : undefined); }
     else if (t !== target) { target = t; run(); }
   };
-  const onP = () => { if (b <= 0) return null; const r = slot.getBoundingClientRect(); return { cx: r.left + r.width / 2, cy: r.top + r.height / 2, s: 48, b }; };
+  const onP = () => { if (b <= 0) return null; const r = slot.getBoundingClientRect(); return { cx: r.left + r.width / 2, cy: r.top + r.height / 2, s: 48 * BIG, b }; };
   SCROLLS.add(onS); POS.add(onP);
   const size = () => (sec.style.height = innerHeight * (1 + PE + N * WP + PX) + 'px');
   size(); addEventListener('resize', size);
@@ -543,6 +580,7 @@ function mountApps() {
       <div class="wsay"><span class="wms" aria-hidden="true"></span><p class="tx2"></p></div>
       <div class="ho" aria-live="polite"><div class="hr"><span class="hs"></span><div class="hx"><small></small><p></p></div></div><span class="hb"></span></div>
     </div></div></section>`;
+  bigStage($('#apps'));
   const sec = $('#apps'), stg = $('.stage', sec), ac = $('.ac', sec), st = $('.tx2', sec), slot = $('.wms', sec), ho = $('.ho', sec), hs = $('.hs', sec), N = AS.length, WP = .7;
   const els = $$('.at', sec), T = els.map((el, j) => ({ el, x: 0, y: 0, s: 56, r: (j * 37 % 15) - 7, ph: j * 1.7, z: .4 + (j * 23 % 10) / 10, p: 0, g: 0 }));
   let enter = 0, prog = 0, dim = 0, raf = 0, last = 0, hx = 0, hy = 0, built = 0, target = 0, gen = 0, tok = 0, busy = false, b = 0;
@@ -568,7 +606,7 @@ function mountApps() {
     T.forEach((t) => {
       t.p = clamp(t.p + (t.g ? 1 : -1) * dt / 650); const k = ease(t.p);
       const cx = W / 2 + (t.x - W / 2) * lerp(1.5, 1, e), cy = H / 2 + (t.y - H / 2) * lerp(1.5, 1, e) + (prog - .5) * -90 * t.z + (RM ? 0 : Math.sin(tm * .8 + t.ph) * 5 * (1 - k));
-      const x = lerp(cx, hx, k), y = lerp(cy, hy, k), sc = lerp(1, 60 / t.s * (hs.offsetWidth / 60), k) * lerp(.6, 1, e), rot = lerp(t.r + (RM ? 0 : Math.sin(tm * .6 + t.ph) * 2), 0, k);
+      const x = lerp(cx, hx, k), y = lerp(cy, hy, k), sc = lerp(1, 60 / t.s * (q.width / 60), k) * lerp(.6, 1, e), rot = lerp(t.r + (RM ? 0 : Math.sin(tm * .6 + t.ph) * 2), 0, k);
       t.el.style.width = t.el.style.height = t.s + 'px';
       t.el.style.transform = `translate(${x - t.s / 2}px,${y - t.s / 2}px) rotate(${rot}deg) scale(${sc})`;
       t.el.style.opacity = t.hide && !t.g ? 0 : e * lerp(1, .38, dim * (1 - k));
@@ -623,7 +661,7 @@ function mountApps() {
     if (t < built) { halt(); built = target = t; paint(t); st.textContent = t ? AS[t - 1][0] : ''; flyTo(t ? 'done' : undefined); }
     else if (t !== target) { target = t; run(); }
   };
-  const onP = () => { if (b <= 0) return null; const r = slot.getBoundingClientRect(); return { cx: r.left + r.width / 2, cy: r.top + r.height / 2, s: 48, b }; };
+  const onP = () => { if (b <= 0) return null; const r = slot.getBoundingClientRect(); return { cx: r.left + r.width / 2, cy: r.top + r.height / 2, s: 48 * BIG, b }; };
   SCROLLS.add(onS); POS.add(onP);
   const size = () => { sec.style.height = innerHeight * (1 + PE + N * WP + PX) + 'px'; if (raf) lay(); };
   size(); addEventListener('resize', size);
